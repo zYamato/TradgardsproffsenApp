@@ -1,0 +1,59 @@
+﻿@page "/deletecompany"
+@using TradgardsproffsenApp.Models
+@using TradgardsproffsenApp.Data.Services
+@inject CompanyService Service
+
+<h3>Företag</h3>
+
+<style>
+    form {
+        width: 100%;
+    }
+</style>
+<html>
+<head>
+    <title>Updatera ett företag</title>
+</head>
+<body class="form-body">
+    <div class="textbox">
+        <form action="/">
+            <div class="banner">
+                <form-h1 style="font-weight:600">Updatera ett företag</form-h1>
+            </div>
+            <div class="item">
+                <p>Namn på företaget</p>
+                <div class="name-item">
+                    <input type="text" name="name" @bind="companyName" placeholder="Namnet på företaget" />
+                </div>
+            </div>
+            <div class="btn-block">
+                <div class="btn btn-primary" @onclick="@GetAndDeleteForetag">Radera företag</div>
+            </div>
+            @if (Success)
+            {
+                <div class="alert alert-success" role="alert">
+                    Företaget har raderats!
+                </div>
+            }
+        </form>
+    </div>
+</body>
+</html>
+
+@code {
+    private string companyName;
+    List<CompanyDto> companyList;
+    bool Success;
+
+    async void GetAndDeleteCompany()
+    {
+        companyList= await Service.GetAllCompanies();
+
+        var company = (from f in companyList
+                       where f.Name == companyName
+                       select f).FirstOrDefault();
+
+        Success = await Service.DeleteCompany(company.Id);
+    }
+
+}

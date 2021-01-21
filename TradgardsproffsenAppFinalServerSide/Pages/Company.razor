@@ -1,0 +1,55 @@
+﻿@page "/company"
+
+@using TradgardsproffsenApp.Models
+@using TradgardsproffsenApp.Data.Services
+@using BlazorTable
+@inject CompanyService Service
+
+<h3>Företag</h3>
+
+@if (company == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+
+    <input type="text" @bind="searchString" id="searchText" />
+    <input type="button" value="Search Namn" @onclick="@SearchNamnMethod" />
+    <input type="button" value="Search Län" @onclick="@SearchLanMethod" />
+    <Table TableItem="CompanyDto" Items="company" PageSize="15" ColumnReorder="true">
+        <Column TableItem="CompanyDto" Title="Namn" Field="@(x => x.Name)" Sortable="true" Filterable="true" DefaultSortColumn="true" Width="20%" />
+        <Column TableItem="CompanyDto" Title="Mail" Field="@(x => x.Email)" Sortable="false" Filterable="true" DefaultSortColumn="true" Width="20%" />
+        <Column TableItem="CompanyDto" Title="Telefon nummer" Field="@(x => x.PhoneNumber)" Sortable="false" Filterable="true" DefaultSortColumn="true" Width="20%" />
+        <Column TableItem="CompanyDto" Title="Omsättnings mål" Field="@(x => x.SalesTarget)" Sortable="true" Filterable="true" DefaultSortColumn="true" Width="10%" />
+        <Column TableItem="CompanyDto" Title="Fakturerat" Field="@(x => x.Invoiced)" Sortable="true" Filterable="true" DefaultSortColumn="true" Width="10%" />
+        <Column TableItem="CompanyDto" Title="Kvar" Field="@(x => x.Left)" Sortable="true" Filterable="true" DefaultSortColumn="true" Width="10%" />
+        <Column TableItem="CompanyDto" Title="Senaste Lead" Field="@(x => x.LatestLead)" Sortable="true" Filterable="true" DefaultSortColumn="true" Width="20%" />
+        <Column TableItem="CompanyDto" Title="Län" Field="@(x => x.County)" Sortable="true" Filterable="true" DefaultSortColumn="true" Width="20%" />
+        <Column TableItem="CompanyDto" Title="Utförda" Field="@(x => x.Accomplished)" Sortable="false" Filterable="true" DefaultSortColumn="true" Width="10%" />
+        <Column TableItem="CompanyDto" Title="Hitrate" Field="@(x => x.HitRate)" Sortable="false" Filterable="true" DefaultSortColumn="true" Width="10%" />
+        <Pager ShowPageNumber="true" ShowTotalCount="true" />
+    </Table>
+
+}
+
+
+@code {
+
+    private List<CompanyDto> company;
+    public string searchString;
+
+    protected override async Task OnInitializedAsync()
+    {
+        company = await Service.GetAllCompanies();
+    }
+
+    public async Task SearchNamnMethod()
+    {
+        company = await Service.GetAllCompanyAsyncName(searchString.ToLower());
+    }
+    public async Task SearchLanMethod()
+    {
+        company = await Service.GetAllCompanyAsyncCounty(searchString.ToLower());
+    }
+}

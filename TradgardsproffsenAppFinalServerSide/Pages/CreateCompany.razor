@@ -1,0 +1,80 @@
+﻿@page "/createcompany"
+
+@using TradgardsproffsenApp.Models
+@using TradgardsproffsenApp.Data.Services
+@inject CompanyService Service 
+
+<h3>Skapa ett nytt företag</h3>
+
+<style>
+    form {
+        width: 100%;
+    }
+</style>
+<html>
+<head>
+    <title>Lägg till Företag</title>
+</head>
+<body class="form-body">
+    <div class="textbox">
+        <form action="/">
+            <div class="banner">
+                <form-h1 style="font-weight:600">Lägg till ett Företag</form-h1>
+            </div>
+            <div class="item">
+                <p>Namn</p>
+                <div class="name-item">
+                    <input type="text" name="name" @bind="company.Name" placeholder="Skriv namnet på företaget" />
+                </div>
+            </div>
+            <div class="name-item">
+                <p>Email</p>
+                <div class="email-item">
+                    <input type="text" name="email" @bind="company.Email" placeholder="Skriv Företagets Email" />
+                </div>
+            </div>
+            <div class="name-item">
+                <p>Telefon Nummer</p>
+                <div class="number-item">
+                    <input type="text" name="PhoneNumber" @bind="company.PhoneNumber" placeholder="Telefon Nummer" />
+                </div>
+            </div>
+            <div class="name-item">
+                <p>Omsättnings mål</p>
+                <div class="omsattning-item">
+                    <input type="text" name="omsattning" @bind="company.SalesTarget" placeholder="" />
+                </div>
+            </div>
+            <div class="name-item">
+                <p>Län</p>
+                <div class="province-item">
+                    <input type="text" name="province" @bind="company.County" placeholder="Län till företag" />
+                </div>
+            </div>
+            <div class="btn-block">
+                <div class="btn btn-primary" @onclick="@Upload"> Lägg upp foretag</div>
+            </div>
+            @if (Success)
+            {
+                <div class="alert alert-success" role="alert">
+                    Företaget har lagts till!
+                </div>
+            }
+        </form>
+    </div>
+</body>
+</html>
+
+@code {
+
+    CreateCompanyDto company = new CreateCompanyDto();
+    bool Success;
+
+    async void Upload()
+    {
+        company.Left = company.SalesTarget;
+        Success = await Service.CreateCompany(company);
+        this.StateHasChanged();
+    }
+
+}

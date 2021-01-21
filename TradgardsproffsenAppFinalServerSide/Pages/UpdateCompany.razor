@@ -1,0 +1,109 @@
+﻿@page "/updatecompany"
+@using TradgardsproffsenApp.Models
+@using TradgardsproffsenApp.Data.Services
+@inject CompanyService Service
+
+<h3>Foretag</h3>
+
+<style>
+    form {
+        width: 100%;
+    }
+</style>
+<html>
+<head>
+    <title>Updatera ett företag</title>
+</head>
+<body class="form-body">
+    <div class="textbox">
+        <form action="/">
+            <div class="banner">
+                <form-h1 style="font-weight:600">Updatera ett företag</form-h1>
+            </div>
+            <div class="item">
+                <p>Namn på företaget</p>
+                <div class="name-item">
+                    <input type="text" name="name" @bind="companyName" placeholder="Namnet på företaget" />
+                </div>
+            </div>
+            <div class="btn-block">
+                <div class="btn btn-primary" @onclick="@GetName">Hämta företag</div>
+            </div>
+                <div class="name-item">
+                    <p>Email</p>
+                    <div class="email-item">
+                        <input type="text" name="email" @bind="newcompany.Email" placeholder="Skriv Företagets Email" />
+                    </div>
+                </div>
+                <div class="name-item">
+                    <p>Telefon Nummer</p>
+                    <div class="number-item">
+                        <input type="text" name="PhoneNumber" @bind="newcompany.PhoneNumber" placeholder="Telefon Nummer" />
+                    </div>
+                </div>
+                <div class="name-item">
+                    <p>Kvar att fakturera</p>
+                    <div class="omsattning-item">
+                        <input type="text" name="omsattning" @bind="newcompany.Left" placeholder="" />
+                    </div>
+                </div>
+                <div class="name-item">
+                    <p>Län</p>
+                    <div class="province-item">
+                        <input type="text" name="province" @bind="newcompany.County" placeholder="Län till företag" />
+                    </div>
+                </div>
+
+                <div class="btn-block">
+                    <div class="btn btn-primary" @onclick="@Update">Skicka företag</div>
+                </div>
+                @if (Success)
+                {
+                    <div class="alert alert-success" role="alert">
+                        Företaget har updaterats!
+                    </div>
+                }
+        </form>
+    </div>
+</body>
+</html>
+
+@code {
+    private string companyName;
+    CompanyDto company = new CompanyDto();
+    CompanyDto newcompany = new CompanyDto();
+    List<CompanyDto> companyList;
+    bool Success;
+
+    async void GetName()
+    {
+        companyList = await Service.GetAllCompanies();
+
+        company = (from f in companyList
+                   where f.Name == companyName
+                   select f).FirstOrDefault();
+    }
+
+    async void Update()
+    {
+        newcompany.Name = companyName;
+        if(newcompany.Email == null || newcompany.Email == "")
+        {
+            newcompany.Email = company.Email;
+        }
+        if (newcompany.PhoneNumber == null || newcompany.PhoneNumber == "")
+        {
+            newcompany.PhoneNumber = company.PhoneNumber;
+        }
+        if (newcompany.Left == 0)
+        {
+            newcompany.Left = company.Left;
+        }
+        if (newcompany.County == null || newcompany.County == "")
+        {
+            newcompany.County = company.County;
+        }
+
+        Success = await Service.UpdateCompany(company.Id, newcompany);
+    }
+}

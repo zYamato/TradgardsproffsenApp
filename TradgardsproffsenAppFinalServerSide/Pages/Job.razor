@@ -1,0 +1,40 @@
+﻿@page "/job"
+@using TradgardsproffsenApp.Models
+@using TradgardsproffsenApp.Data.Services
+@inject JobService Service
+
+<h3>Jobbs</h3>
+
+@if (jobs == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Jobb</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var j in jobs)
+            {
+                <tr>
+                    <td>@j.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
+@code {
+    private JobDto[] jobs;
+
+    protected override async Task OnInitializedAsync()
+    {
+        jobs = await Service.GetJobs();
+    }
+}
