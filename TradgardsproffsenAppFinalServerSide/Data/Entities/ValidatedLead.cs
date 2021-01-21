@@ -18,6 +18,6 @@ namespace TradgardsproffsenApp.Entities
         public string Email { get; set; }
         public string URL { get; set; }
         public string Info { get; set; }
-        public List<JobDto> Jobs { get; set; } = new List<JobDto>();
+        public List<LeadJob> Jobs { get; set; } = new List<LeadJob>();
     }
 }

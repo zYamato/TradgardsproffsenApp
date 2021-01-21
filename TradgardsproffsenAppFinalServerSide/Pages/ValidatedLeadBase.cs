@@ -14,7 +14,7 @@ namespace TradgardsproffsenApp.Pages
     {
         public static TradgardsproffsenApp.Entities.Lead Lead { get; set; } = new TradgardsproffsenApp.Entities.Lead();
 
-        public JobDto[] jobbs;
+        public JobDto[] jobs;
 
         public CreateValidatedLeadDto ValidLead = new CreateValidatedLeadDto
         {
@@ -27,7 +27,7 @@ namespace TradgardsproffsenApp.Pages
         };
 
         [Inject]
-        public JobService jobbService { get; set; }
+        public JobService jobService { get; set; }
         [Inject]
         public ValidatedLeadService validService{ get; set; }
 
@@ -36,7 +36,7 @@ namespace TradgardsproffsenApp.Pages
         [Parameter]
         public string Id { get; set; }
 
-        public List<JobDto> jobbsToAdd { get; set; } = new List<JobDto>();
+        public List<LeadJob> jobbsToAdd { get; set; } = new List<LeadJob>();
 
         public List<string> CheckBox { get; set; } = new List<string>();
 
@@ -44,22 +44,38 @@ namespace TradgardsproffsenApp.Pages
         protected async override Task OnInitializedAsync()
         {
           Lead = await LeadsService.GetLeadByID(int.Parse(Id));
-          jobbs = await jobbService.GetJobs();
+          jobs = await jobService.GetJobs();
         }
 
         public async void HandleValidSubmit()
         {
             foreach(var item in CheckBox)
             {
-                JobDto jobb = (from j in jobbs
+                JobDto job = (from j in jobs
                                     where j.Name == item
                                     select j).FirstOrDefault();
-                jobbsToAdd.Add(jobb);
+
+                TradgardsproffsenApp.Entities.Job jobConvert = new TradgardsproffsenApp.Entities.Job
+                {
+                    Id = job.Id,
+                    Name = job.Name
+                };
+
+                LeadJob jobToAdd = new LeadJob
+                {
+                    Id = jobConvert.Id,
+                    JobId = jobConvert.Id,
+                    Job = jobConvert,
+                    Lead = Lead,
+                    LeadsId = Lead.Id
+                };
+
+                jobbsToAdd.Add(jobToAdd);
             }
 
             bool success;
             Thread.Sleep(10);
-            success = await validService.ValideraLeads(ValidLead, jobbsToAdd);
+            success = await validService.ValidateLead(ValidLead, jobbsToAdd);
         }
 
         public void CheckboxClicked(string CheckId, object checkedValue)

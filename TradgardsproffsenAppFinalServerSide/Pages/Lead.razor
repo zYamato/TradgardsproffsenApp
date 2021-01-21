@@ -30,7 +30,7 @@ else
                     <td>@l.Name</td>
                     <td>@l.PhoneNumber</td>
                     <td>@l.Address</td>
-                    <td>@l.PostNr</td>
+                    <td>@l.PostCode</td>
                     <td>@l.URL</td>
                     <td>@l.Info</td>
                 </tr>
@@ -51,7 +51,7 @@ else
 
     public void onClickLead(LeadDto l)
     {
-        NaviManager.NavigateTo($"/ValideraLeads/{l.Id}", forceLoad: true);
+        NaviManager.NavigateTo($"/ValidatedLead/{l.Id}", forceLoad: true);
         l = null;
     }
 }

@@ -14,7 +14,7 @@ namespace TradgardsproffsenApp.Data.Services
     public class ValidatedLeadService
     {
         //private string _ApiUrlBase = "https://tradgardsproffsen.azurewebsites.net/api/Valideradeleads/";
-        private string _LocalUrlBase = "https://localhost:44347/api/Valideradeleads";
+        private string _LocalUrlBase = "https://localhost:44347/api/ValidatedLeads";
         private readonly IHttpClientFactory _clientFactory;
 
         public ValidatedLeadService(IHttpClientFactory clientFactory)
@@ -60,10 +60,10 @@ namespace TradgardsproffsenApp.Data.Services
 
         }
 
-        public async Task<bool> ValideraLeads(CreateValidatedLeadDto lead, List<JobDto> jobbs)
+        public async Task<bool> ValidateLead(CreateValidatedLeadDto lead, List<LeadJob> jobs)
         {
             string sUrl = _LocalUrlBase;
-            lead.Jobbs = jobbs;
+            lead.Jobs = jobs;
             string leadJson = JsonConvert.SerializeObject(lead);
 
             var client = _clientFactory.CreateClient();

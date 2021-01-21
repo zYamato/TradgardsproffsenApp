@@ -32,7 +32,7 @@
         <label for="email">Email</label>
         <InputText class="form-control" id="email" @bind-Value="ValidLead.Email" />
     </div>
-    @if (@jobbs == null)
+    @if (@jobs == null)
     {
         <p><em>Loading...</em></p>
     }
@@ -40,8 +40,8 @@
     {
         @foreach (var check in CheckBoxList())
         {
-            <input class="custom-checkbox" type="checkbox" id="jobbName" @onchange="eventArgs => { CheckboxClicked(check, eventArgs.Value); }"/>
-            <label for="jobbName"> @check </label>
+            <input class="custom-checkbox" type="checkbox" id="jobName" @onchange="eventArgs => { CheckboxClicked(check, eventArgs.Value); }"/>
+            <label for="jobName"> @check </label>
             <br/>
         }
     }

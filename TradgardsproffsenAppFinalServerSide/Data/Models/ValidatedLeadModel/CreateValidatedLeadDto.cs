@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TradgardsproffsenApp.Entities;
 using TradgardsproffsenApp.Models;
 
 namespace TradgardsproffsenApp.Models
@@ -14,6 +15,6 @@ namespace TradgardsproffsenApp.Models
         public string Email { get; set; }
         public string URL { get; set; }
         public string Info { get; set; }
-        public List<JobDto> Jobbs { get; set; } = new List<JobDto>();
+        public List<LeadJob> Jobs { get; set; } = new List<LeadJob>();
     }
 }

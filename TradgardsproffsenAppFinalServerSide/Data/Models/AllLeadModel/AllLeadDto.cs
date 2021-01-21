@@ -3,7 +3,7 @@ using TradgardsproffsenApp.Entities;
 
 namespace TradgardsproffsenApp.Models
 {
-    public class AllLeadModel
+    public class AllLeadDto
     {
         public Lead Lead { get; set; }
         public ValidatedLead ValidLead { get; set; }
