@@ -60,17 +60,15 @@ namespace TradgardsproffsenApp.Data.Services
 
         }
 
-        public async Task<bool> ValidateLead(CreateValidatedLeadDto lead, List<LeadJob> jobs)
+        public async Task<bool> ValidateLead(CreateValidatedLeadDto lead)
         {
             string sUrl = _LocalUrlBase;
-            lead.Jobs = jobs;
             string leadJson = JsonConvert.SerializeObject(lead);
 
             var client = _clientFactory.CreateClient();
 
-            var stringContent = new StringContent(leadJson, Encoding.UTF8, "application/json");
+            var stringContent = new StringContent(content: leadJson, encoding: Encoding.UTF8, mediaType: "application/json");
             var respons = await client.PostAsync(sUrl, stringContent);
-
             Console.WriteLine(respons);
             return true;
         }

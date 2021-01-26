@@ -3,10 +3,10 @@ using TradgardsproffsenApp.Entities;
 
 namespace TradgardsproffsenApp.Models
 {
-    public class CreareSentOutLeadDto
+    public class CreateSentOutLeadDto
     {
         public ValidatedLead Lead { get; set; }
-        public List<LeadJob> Jobbs { get; set; } = new List<LeadJob>();
+        public List<Job> Jobs { get; set; } = new List<Job>();
         public List<Company> ForetagListaSkickade { get; set; } = new List<Company>();
     }
 }

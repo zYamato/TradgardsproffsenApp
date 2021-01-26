@@ -10,13 +10,8 @@ namespace TradgardsproffsenApp.Entities
         [Required]
         [Key]
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Address { get; set; }
-        public string PostCode { get; set; }
-        public string URL { get; set; }
-        public string Info { get; set; }
-        public List<LeadJob> Jobs { get; set; } = new List<LeadJob>();
+        public ValidatedLead Lead { get; set; }
+        public List<Job> Jobs { get; set; }
         public List<Company> CompaniesSentTo { get; set; } = new List<Company>();
     }
 }

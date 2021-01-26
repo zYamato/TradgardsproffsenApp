@@ -6,7 +6,7 @@ namespace TradgardsproffsenApp.Models
     public class SentOutLeadDto
     {
         public ValidatedLead Lead { get; set; }
-        public List<LeadJob> Jobs { get; set; } = new List<LeadJob>();
+        public List<Job> Jobs { get; set; } = new List<Job>();
         public List<Company> CompaniesSentTo { get; set; } = new List<Company>();
     }
 }

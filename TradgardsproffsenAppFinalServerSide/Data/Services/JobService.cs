@@ -20,9 +20,9 @@ namespace TradgardsproffsenApp.Data.Services
             _clientFactory = clientFactory;
         }
 
-        public async Task<JobDto[]> GetJobs()
+        public async Task<Job[]> GetJobs()
         {
-            JobDto[] jobs;
+            Job[] jobs;
             string sUrl = _LocalUrlBase;
 
             var request = new HttpRequestMessage(HttpMethod.Get,
@@ -37,7 +37,7 @@ namespace TradgardsproffsenApp.Data.Services
                 if (respons.IsSuccessStatusCode)
                 {
                     var responsToString = await respons.Content.ReadAsStringAsync();
-                    jobs = JsonConvert.DeserializeObject<JobDto[]>(responsToString);
+                    jobs = JsonConvert.DeserializeObject<Job[]>(responsToString);
                     return jobs;
                 }
             }

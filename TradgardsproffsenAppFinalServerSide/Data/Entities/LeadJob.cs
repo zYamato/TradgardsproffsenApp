@@ -1,11 +1,16 @@
-﻿namespace TradgardsproffsenApp.Entities
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using TradgardsproffsenApp.Models;
+
+namespace TradgardsproffsenApp.Entities
 {
     public class LeadJob
     {
+        [Required]
+        [Key]
         public int Id { get; set; }
-        public Lead Lead { get; set; }
-        public int LeadsId { get; set; }
-        public Job Job { get; set; }
+
+        [ForeignKey("Job")]
         public int JobId { get; set; }
     }
 }

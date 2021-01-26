@@ -12,18 +12,18 @@ namespace TradgardsproffsenApp.Pages
 {
     public class ValidatedLeadBase : ComponentBase
     {
-        public static TradgardsproffsenApp.Entities.Lead Lead { get; set; } = new TradgardsproffsenApp.Entities.Lead();
+        public static TradgardsproffsenApp.Entities.Lead lead { get; set; } = new TradgardsproffsenApp.Entities.Lead();
 
-        public JobDto[] jobs;
+        public Entities.Job[] jobs;
 
-        public CreateValidatedLeadDto ValidLead = new CreateValidatedLeadDto
+        public CreateValidatedLeadDto validLead = new CreateValidatedLeadDto
         {
-            Id = Lead.Id,
-            Name = Lead.Name,
-            PhoneNumber = Lead.PhoneNumber,
-            Address = Lead.Address,
-            PostCode = Lead.PostCode,
-            Info = Lead.Info
+            Name = lead.Name,
+            PhoneNumber = lead.PhoneNumber,
+            Address = lead.Address,
+            PostCode = lead.PostCode,
+            URL = lead.URL,
+            Info = lead.Info
         };
 
         [Inject]
@@ -36,14 +36,14 @@ namespace TradgardsproffsenApp.Pages
         [Parameter]
         public string Id { get; set; }
 
-        public List<LeadJob> jobbsToAdd { get; set; } = new List<LeadJob>();
+        public List<LeadJob> jobsToAdd { get; set; } = new List<LeadJob>();
 
         public List<string> CheckBox { get; set; } = new List<string>();
 
 
         protected async override Task OnInitializedAsync()
         {
-          Lead = await LeadsService.GetLeadByID(int.Parse(Id));
+          lead = await LeadsService.GetLeadByID(int.Parse(Id));
           jobs = await jobService.GetJobs();
         }
 
@@ -51,31 +51,24 @@ namespace TradgardsproffsenApp.Pages
         {
             foreach(var item in CheckBox)
             {
-                JobDto job = (from j in jobs
-                                    where j.Name == item
-                                    select j).FirstOrDefault();
-
-                TradgardsproffsenApp.Entities.Job jobConvert = new TradgardsproffsenApp.Entities.Job
-                {
-                    Id = job.Id,
-                    Name = job.Name
-                };
+                Entities.Job job = (from j in jobs
+                              where j.Name == item
+                              select j).FirstOrDefault();
 
                 LeadJob jobToAdd = new LeadJob
                 {
-                    Id = jobConvert.Id,
-                    JobId = jobConvert.Id,
-                    Job = jobConvert,
-                    Lead = Lead,
-                    LeadsId = Lead.Id
+                    JobId = job.Id
                 };
 
-                jobbsToAdd.Add(jobToAdd);
+
+                jobsToAdd.Add(jobToAdd);
             }
 
+            validLead.Jobs = jobsToAdd;
+
             bool success;
-            Thread.Sleep(10);
-            success = await validService.ValidateLead(ValidLead, jobbsToAdd);
+
+                success = await validService.ValidateLead(validLead);
         }
 
         public void CheckboxClicked(string CheckId, object checkedValue)
