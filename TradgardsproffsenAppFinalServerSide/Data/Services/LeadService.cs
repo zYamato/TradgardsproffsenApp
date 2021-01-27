@@ -26,8 +26,7 @@ namespace TradgardsproffsenApp.Data.Services
             LeadDto[] leads;
             string sUrl = _LocalUrlBase;
 
-            var request = new HttpRequestMessage(HttpMethod.Get,
-                sUrl);
+            var request = new HttpRequestMessage(HttpMethod.Get, sUrl);
 
             var client = _clientFactory.CreateClient();
 

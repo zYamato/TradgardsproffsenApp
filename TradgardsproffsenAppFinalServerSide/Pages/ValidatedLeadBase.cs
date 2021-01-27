@@ -32,7 +32,7 @@ namespace TradgardsproffsenApp.Pages
         public ValidatedLeadService validService{ get; set; }
 
         [Inject]
-        public LeadService LeadsService { get; set; }
+        public LeadService leadsService { get; set; }
         [Parameter]
         public string Id { get; set; }
 
@@ -43,7 +43,7 @@ namespace TradgardsproffsenApp.Pages
 
         protected async override Task OnInitializedAsync()
         {
-          lead = await LeadsService.GetLeadByID(int.Parse(Id));
+          lead = await leadsService.GetLeadByID(int.Parse(Id));
           jobs = await jobService.GetJobs();
         }
 
@@ -67,8 +67,10 @@ namespace TradgardsproffsenApp.Pages
             validLead.Jobs = jobsToAdd;
 
             bool success;
+            bool test;
 
-                success = await validService.ValidateLead(validLead);
+            success = await validService.ValidateLead(validLead);
+            test = await leadsService.DeleteLead(lead.Id);
         }
 
         public void CheckboxClicked(string CheckId, object checkedValue)

@@ -60,6 +60,45 @@ namespace TradgardsproffsenApp.Data.Services
 
         }
 
+        public async Task<ValidatedLeadDto[]> GetAllValidatedLeads()
+        {
+            ValidatedLeadDto[] leads;
+            string sUrl = _LocalUrlBase;
+
+            var request = new HttpRequestMessage(HttpMethod.Get, sUrl);
+
+            var client = _clientFactory.CreateClient();
+
+            try
+            {
+                var respons = await client.GetAsync(sUrl);
+
+                if (respons.IsSuccessStatusCode)
+                {
+                    var responsToString = await respons.Content.ReadAsStringAsync();
+                    leads = JsonConvert.DeserializeObject<ValidatedLeadDto[]>(responsToString);
+                    return leads;
+                }
+            }
+            catch (SocketException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+
+            }
+            return null;
+        }
+
         public async Task<bool> ValidateLead(CreateValidatedLeadDto lead)
         {
             string sUrl = _LocalUrlBase;
