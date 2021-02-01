@@ -112,6 +112,41 @@ namespace TradgardsproffsenApp.Data.Services
             return true;
         }
 
+        public async Task<ValidatedLead> GetValidatedLeadByID(int id)
+        {
+            ValidatedLead lead;
+            string sUrl = _LocalUrlBase + id;
+            var request = new HttpRequestMessage(HttpMethod.Get,
+                sUrl);
+
+            var client = _clientFactory.CreateClient();
+
+            try
+            {
+                string respons = await client.GetStringAsync(sUrl);
+                lead = JsonConvert.DeserializeObject<ValidatedLead>(respons);
+                lead.Id = id;
+                return lead;
+            }
+            catch (SocketException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+
+            }
+            return null;
+        }
+
 
     }
 }

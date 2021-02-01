@@ -1,0 +1,17 @@
+﻿@page "/validatedLeadInfo/{id}"
+@using TradgardsproffsenApp.Models
+@using TradgardsproffsenApp.Data.Services
+@inject ValidatedLeadService Service
+
+<h3>ValidatedLeadInfo</h3>
+
+@code {
+
+    ValidatedLead validLead { get; set; }
+
+   // protected override async Task OnInitializedAsync()
+   // {
+   //    // validLead = await Service.GetValidatedLeadByID();
+   // }
+
+}

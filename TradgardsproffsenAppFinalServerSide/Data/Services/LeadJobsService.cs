@@ -1,32 +1,31 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 using TradgardsproffsenApp.Entities;
-using TradgardsproffsenApp.Models;
-using Newtonsoft.Json;
-using System.Net.Sockets;
-using System.Text;
-using System.Net.Http;
 
 namespace TradgardsproffsenApp.Data.Services
 {
-    public class JobService
+    public class LeadJobsService
     {
-        //private string _ApiUrlBase = "https://tradgardsproffsen.azurewebsites.net/api/Job";
-        private string _LocalUrlBase = "https://localhost:44347/api/Job";
+
+        private string _LocalUrlBase = "https://localhost:44347/api/leadjobs/";
         private readonly IHttpClientFactory _clientFactory;
 
-        public JobService(IHttpClientFactory clientFactory)
+        public LeadJobsService(IHttpClientFactory clientFactory)
         {
             _clientFactory = clientFactory;
         }
 
-        public async Task<Job[]> GetJobs()
+        public async Task<LeadJob[]> GetAllLeadJobs()
         {
-            Job[] jobs;
+            LeadJob[] leadJob;
             string sUrl = _LocalUrlBase;
 
-            var request = new HttpRequestMessage(HttpMethod.Get,
-                sUrl);
+            var request = new HttpRequestMessage(HttpMethod.Get, sUrl);
 
             var client = _clientFactory.CreateClient();
 
@@ -37,8 +36,8 @@ namespace TradgardsproffsenApp.Data.Services
                 if (respons.IsSuccessStatusCode)
                 {
                     var responsToString = await respons.Content.ReadAsStringAsync();
-                    jobs = JsonConvert.DeserializeObject<Job[]>(responsToString);
-                    return jobs;
+                    leadJob = JsonConvert.DeserializeObject<LeadJob[]>(responsToString);
+                    return leadJob;
                 }
             }
             catch (SocketException e)

@@ -12,7 +12,7 @@ namespace TradgardsproffsenApp.Pages
 {
     public class ValidateLeadBase : ComponentBase
     {
-        public static TradgardsproffsenApp.Entities.Lead lead { get; set; } = new TradgardsproffsenApp.Entities.Lead();
+        public static Entities.Lead lead { get; set; } = new Entities.Lead();
 
         public Entities.Job[] jobs;
 
@@ -94,22 +94,11 @@ namespace TradgardsproffsenApp.Pages
         public List<string> CheckBoxList()
         {
             List<string> checkBox = new List<string>();
-            checkBox.Add("Altan & terass");
-            checkBox.Add("Beskärning");
-            checkBox.Add("Bortforsling:");
-            checkBox.Add("Dränering");
-            checkBox.Add("Gräsklippning");
-            checkBox.Add("Häckklippning");
-            checkBox.Add("Markfällning");
-            checkBox.Add("Mur & Staket");
-            checkBox.Add("Planteringar");
-            checkBox.Add("Schaktning");
-            checkBox.Add("Sektionsfällning");
-            checkBox.Add("Snöröjning/skottning");
-            checkBox.Add("Stenläggning");
-            checkBox.Add("Stubbfräsning");
-            checkBox.Add("Trädgårdsanläggning");
-            checkBox.Add("Trädgårdsskötsel");
+
+            foreach(var job in jobs)
+            {
+                checkBox.Add(job.Name);
+            }
             return checkBox;
         }
     }
