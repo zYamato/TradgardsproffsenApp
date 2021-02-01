@@ -17,7 +17,9 @@ else
             <tr>
                 <th>Namn</th>
                 <th>Telefon Nummer</th>
+                <th>Email</th>
                 <th>Address</th>
+                <th>Ort</th>
                 <th>PostNr</th>
                 <th>Url</th>
                 <th>Info</th>
@@ -29,7 +31,9 @@ else
                 <tr @onclick="(()=>onClickLead(l))">
                     <td>@l.Name</td>
                     <td>@l.PhoneNumber</td>
+                    <td>@l.Email</td>
                     <td>@l.Address</td>
+                    <td>@l.District</td>
                     <td>@l.PostCode</td>
                     <td>@l.URL</td>
                     <td>@l.Info</td>
