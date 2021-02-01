@@ -2,7 +2,7 @@
 
 @using TradgardsproffsenApp.Models
 @using TradgardsproffsenApp.Entities
-@inherits ValidatedLeadBase
+@inherits ValidateLeadBase
 
 <h3>ValideraLeads</h3>
 
@@ -40,10 +40,16 @@
     {
         @foreach (var check in CheckBoxList())
         {
-            <input class="custom-checkbox" type="checkbox" id="jobName" @onchange="eventArgs => { CheckboxClicked(check, eventArgs.Value); }"/>
+            <input class="custom-checkbox" type="checkbox" id="jobName" @onchange="eventArgs => { CheckboxClicked(check, eventArgs.Value); }" />
             <label for="jobName"> @check </label>
-            <br/>
+            <br />
         }
+    }
+    @if (@success)
+    {
+        <div class="alert alert-success" role="alert">
+            Leadet har Validerats
+        </div>
     }
     <button type="submit" class="btn btn-primary">Skicka</button>
 </EditForm>

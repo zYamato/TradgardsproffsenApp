@@ -10,7 +10,7 @@ using TradgardsproffsenApp.Data.Services;
 
 namespace TradgardsproffsenApp.Pages
 {
-    public class ValidatedLeadBase : ComponentBase
+    public class ValidateLeadBase : ComponentBase
     {
         public static TradgardsproffsenApp.Entities.Lead lead { get; set; } = new TradgardsproffsenApp.Entities.Lead();
 
@@ -40,6 +40,8 @@ namespace TradgardsproffsenApp.Pages
 
         public List<string> CheckBox { get; set; } = new List<string>();
 
+        public bool success;
+
 
         protected async override Task OnInitializedAsync()
         {
@@ -65,8 +67,6 @@ namespace TradgardsproffsenApp.Pages
             }
 
             validLead.Jobs = jobsToAdd;
-
-            bool success;
             bool test;
 
             success = await validService.ValidateLead(validLead);
