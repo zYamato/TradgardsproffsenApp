@@ -11,8 +11,8 @@ namespace TradgardsproffsenApp.Data.Services
 {
     public class JobService
     {
-        //private string _ApiUrlBase = "https://tradgardsproffsen.azurewebsites.net/api/Job";
-        private string _LocalUrlBase = "https://localhost:44347/api/Job";
+        //private string _ApiUrlBase = "https://tradgardsproffsen.azurewebsites.net/api/Job/";
+        private string _LocalUrlBase = "https://localhost:44347/api/Job/";
         private readonly IHttpClientFactory _clientFactory;
 
         public JobService(IHttpClientFactory clientFactory)
@@ -40,6 +40,41 @@ namespace TradgardsproffsenApp.Data.Services
                     jobs = JsonConvert.DeserializeObject<Job[]>(responsToString);
                     return jobs;
                 }
+            }
+            catch (SocketException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (HttpRequestException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+
+            }
+            return null;
+        }
+
+        public async Task<Job> GetJobByID(int id)
+        {
+            Job job;
+            string sUrl = _LocalUrlBase + id;
+            var request = new HttpRequestMessage(HttpMethod.Get,
+                sUrl);
+
+            var client = _clientFactory.CreateClient();
+
+            try
+            {
+                string respons = await client.GetStringAsync(sUrl);
+                job = JsonConvert.DeserializeObject<Job>(respons);
+                job.Id = id;
+                return job;
             }
             catch (SocketException e)
             {

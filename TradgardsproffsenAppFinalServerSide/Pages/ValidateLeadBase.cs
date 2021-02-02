@@ -13,9 +13,7 @@ namespace TradgardsproffsenApp.Pages
     public class ValidateLeadBase : ComponentBase
     {
         public static Entities.Lead lead { get; set; } = new Entities.Lead();
-
         public Entities.Job[] jobs;
-
         public CreateValidatedLeadDto validLead = new CreateValidatedLeadDto
         {
             Name = lead.Name,
@@ -30,16 +28,14 @@ namespace TradgardsproffsenApp.Pages
         public JobService jobService { get; set; }
         [Inject]
         public ValidatedLeadService validService{ get; set; }
-
         [Inject]
         public LeadService leadsService { get; set; }
+
         [Parameter]
         public string Id { get; set; }
 
         public List<LeadJob> jobsToAdd { get; set; } = new List<LeadJob>();
-
         public List<string> CheckBox { get; set; } = new List<string>();
-
         public bool success;
 
 

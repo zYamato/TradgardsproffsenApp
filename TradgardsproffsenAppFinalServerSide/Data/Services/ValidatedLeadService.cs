@@ -14,7 +14,7 @@ namespace TradgardsproffsenApp.Data.Services
     public class ValidatedLeadService
     {
         //private string _ApiUrlBase = "https://tradgardsproffsen.azurewebsites.net/api/Valideradeleads/";
-        private string _LocalUrlBase = "https://localhost:44347/api/ValidatedLeads";
+        private string _LocalUrlBase = "https://localhost:44347/api/ValidatedLeads/";
         private readonly IHttpClientFactory _clientFactory;
 
         public ValidatedLeadService(IHttpClientFactory clientFactory)

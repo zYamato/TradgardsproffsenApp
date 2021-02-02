@@ -9,8 +9,8 @@ namespace TradgardsproffsenApp.Entities
         [Required]
         [Key]
         public int Id { get; set; }
-
-        [ForeignKey("Job")]
+        public int? ValidatedLeadId { get; set; }
+        public int? SentOutLeadId { get; set; }
         public int JobId { get; set; }
     }
 }

@@ -11,9 +11,10 @@ namespace TradgardsproffsenApp.Pages
     public class ValidateLeadInfoBase : ComponentBase
     {
         public static ValidatedLead lead { get; set; } = new ValidatedLead();
-        public static Entities.Job[] jobs { get; set; }
-
+        public List<Entities.Job> jobs { get; set; } = new List<Entities.Job>();
         public static LeadJob[] leadJobs { get; set; }
+        public List<int> jobListId { get; set; } = new List<int>();
+
 
         [Inject]
         public JobService jobService { get; set; }
@@ -29,7 +30,23 @@ namespace TradgardsproffsenApp.Pages
         {
             lead = await validService.GetValidatedLeadByID(int.Parse(Id));
             leadJobs = await leadJobService.GetAllLeadJobs();
-            jobs = await jobService.GetJobs();
+
+            foreach(var leadJob in leadJobs)
+            {
+                if(leadJob.ValidatedLeadId == lead.Id)
+                {
+                    jobListId.Add(leadJob.JobId);
+                }
+            }
+
+            foreach(var id in jobListId)
+            {
+                Entities.Job job = new Entities.Job();
+
+                job = await jobService.GetJobByID(id);
+
+                jobs.Add(job);
+            }
         }
 
 
