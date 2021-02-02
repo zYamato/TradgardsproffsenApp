@@ -8,9 +8,11 @@
 <h3>ValidatedLeadInfo</h3>
 
 <html>
+
 <head>
     <title>Validatedlead Info</title>
 </head>
+
 <body class="form-body">
     <div class="textbox">
         <form action="/">
@@ -20,53 +22,68 @@
             <div class="item">
                 <p>Namn</p>
                 <div class="name-item">
-                    <input type="text" name="name" @bind="lead.Name" readonly/>
+                    <input type="text" name="name" @bind="lead.Name" readonly />
                 </div>
             </div>
             <div class="name-item">
                 <p>Email</p>
                 <div class="email-item">
-                    <input type="text" name="email" @bind="lead.Email" readonly/>
+                    <input type="text" name="email" @bind="lead.Email" readonly />
                 </div>
             </div>
             <div class="name-item">
                 <p>Telefon Nummer</p>
                 <div class="number-item">
-                    <input type="text" name="PhoneNumber" @bind="lead.PhoneNumber" readonly/>
+                    <input type="text" name="PhoneNumber" @bind="lead.PhoneNumber" readonly />
                 </div>
             </div>
             <div class="name-item">
                 <p>Adress</p>
                 <div class="address-item">
-                    <input type="text" name="omsattning" @bind="lead.Address" readonly/>
+                    <input type="text" name="omsattning" @bind="lead.Address" readonly />
                 </div>
             </div>
             <div class="name-item">
                 <p>Län</p>
                 <div class="district-item">
-                    <input type="text" name="province" @bind="lead.District" readonly/>
+                    <input type="text" name="province" @bind="lead.District" readonly />
                 </div>
             </div>
             <div class="name-item">
                 <p>Post Nummer</p>
                 <div class="province-item">
-                    <input type="text" name="province" @bind="lead.PostCode" readonly/>
+                    <input type="text" name="province" @bind="lead.PostCode" readonly />
                 </div>
             </div>
             <div class="name-item">
                 <p>Info</p>
                 <div class="info-item">
-                    <input type="text" name="info" @bind="lead.Info" readonly/>
+                    <input type="text" name="info" @bind="lead.Info" readonly />
                 </div>
             </div>
-             <div class="name-item">
+            <div class="name-item">
                 <p>URL</p>
                 <div class="url-item">
-                    <input type="text" name="url" @bind="lead.URL" readonly/>
+                    <input type="text" name="url" @bind="lead.URL" readonly />
                 </div>
             </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Jobb</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var j in jobs)
+                    {
+                        <tr>
+                            <td>@j.Name</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </form>
     </div>
 </body>
-</html>
 
+</html>
