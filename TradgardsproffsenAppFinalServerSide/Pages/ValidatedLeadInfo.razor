@@ -7,11 +7,6 @@
 
 <h3>ValidatedLeadInfo</h3>
 
-<style>
-    form {
-        width: 100%;
-    }
-</style>
 <html>
 <head>
     <title>Validatedlead Info</title>
@@ -42,13 +37,13 @@
             </div>
             <div class="name-item">
                 <p>Adress</p>
-                <div class="omsattning-item">
+                <div class="address-item">
                     <input type="text" name="omsattning" @bind="lead.Address" readonly/>
                 </div>
             </div>
             <div class="name-item">
                 <p>Län</p>
-                <div class="province-item">
+                <div class="district-item">
                     <input type="text" name="province" @bind="lead.District" readonly/>
                 </div>
             </div>
@@ -56,6 +51,18 @@
                 <p>Post Nummer</p>
                 <div class="province-item">
                     <input type="text" name="province" @bind="lead.PostCode" readonly/>
+                </div>
+            </div>
+            <div class="name-item">
+                <p>Info</p>
+                <div class="info-item">
+                    <input type="text" name="info" @bind="lead.Info" readonly/>
+                </div>
+            </div>
+             <div class="name-item">
+                <p>URL</p>
+                <div class="url-item">
+                    <input type="text" name="url" @bind="lead.URL" readonly/>
                 </div>
             </div>
         </form>
