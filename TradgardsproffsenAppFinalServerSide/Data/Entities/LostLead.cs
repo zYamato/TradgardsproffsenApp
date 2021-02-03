@@ -4,14 +4,14 @@ namespace TradgardsproffsenApp.Entities
 {
     public class LostLead
     {
-        [Required]
-        [Key]
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public string District { get; set; }
-        public string PostCode { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Email { get; set; }
+            [Required]
+            [Key]
+            public int Id { get; set; }
+            public Lead Lead { get; set; }
+            public int? LeadId { get; set; }
+            public ValidatedLead ValidatedLead { get; set; }
+            public int? ValidatedLeadId { get; set; }
+            public SentOutLead SentOutLead { get; set; }
+            public int? SentOutLeadId { get; set; }
     }
 }
