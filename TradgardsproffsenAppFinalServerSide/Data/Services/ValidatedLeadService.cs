@@ -125,7 +125,6 @@ namespace TradgardsproffsenApp.Data.Services
             {
                 string respons = await client.GetStringAsync(sUrl);
                 lead = JsonConvert.DeserializeObject<ValidatedLead>(respons);
-                lead.Id = id;
                 return lead;
             }
             catch (SocketException e)
