@@ -2,7 +2,9 @@
 @using TradgardsproffsenApp.Models
 @using TradgardsproffsenApp.Data.Services
 @inject LeadService Service
+@inject LostLeadService LoseService
 @inject NavigationManager NaviManager
+@inject IJSRuntime JSRuntime
 
 <h3>Leads</h3>
 
@@ -26,13 +28,15 @@ else
         <tbody>
             @foreach (var l in leads)
             {
-                <tr @onclick="(()=>onClickLead(l))">
+                <tr>
                     <td>@l.Name</td>
                     <td>@l.PhoneNumber</td>
                     <td>@l.Address</td>
                     <td>@l.PostCode</td>
                     <td>@l.URL</td>
                     <td>@l.Info</td>
+                    <td><button type="button" class="btn btn-primary" @onclick="(()=>onClickLead(l))">Validera</button></td>
+                    <td><button type="button" class="btn btn-danger" @onclick="(()=>onClickLose(l))">Förlora</button></td>
                 </tr>
             }
         </tbody>
@@ -53,5 +57,26 @@ else
     {
         NaviManager.NavigateTo($"/ValidatedLead/{l.Id}", forceLoad: true);
         l = null;
+    }
+
+    public async Task onClickLose(LeadDto l)
+    {
+        if (!await JSRuntime.InvokeAsync<bool>("confirm", $"Are you sure you want to delete the lead '{l.Name}'?"))
+            return;
+
+        CreateLostLeadDto lostLead = new CreateLostLeadDto()
+        {
+            Name = l.Name,
+            Address = l.Address,
+            PostCode = l.PostCode,
+            PhoneNumber = l.PhoneNumber,
+            URL = l.URL,
+            Info = l.Info,
+            WasValidated = false,
+            WasSentOut = false
+        };
+
+        await LoseService.LoseLead(lostLead);
+        await Service.DeleteLead(l.Id);
     }
 }
