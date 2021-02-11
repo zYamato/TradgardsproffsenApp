@@ -1,0 +1,89 @@
+@page "/lostleads"
+@using TradgardsproffsenApp.Models
+@using TradgardsproffsenApp.Data.Services
+@inject LostLeadService Service
+@inject NavigationManager NaviManager
+
+<h3>Förlorade leads</h3>
+
+@if (leads == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Namn</th>
+                <th>Telefon Nummer</th>
+                <th>Address</th>
+                <th>PostNr</th>
+                <th>Url</th>
+                <th>Info</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var l in leads)
+            {
+                if (l.Lead != null)
+                {
+                    <tr>
+                        <td><h4>Lead</h4></td>
+                        <td>@l.Lead.Name</td>
+                        <td>@l.Lead.PhoneNumber</td>
+                        <td>@l.Lead.Address</td>
+                        <td>@l.Lead.PostCode</td>
+                        <td>@l.Lead.URL</td>
+                        <td>@l.Lead.Info</td>
+                    </tr>
+                }
+                else if (l.ValidatedLead != null)
+                {
+                    <tr>
+                        <td><h4>Validerat Lead</h4></td>
+                        <td>@l.ValidatedLead.Name</td>
+                        <td>@l.ValidatedLead.Email</td>
+                        <td>@l.ValidatedLead.PhoneNumber</td>
+                        <td>@l.ValidatedLead.Address</td>
+                        <td>@l.ValidatedLead.District</td>
+                        <td>@l.ValidatedLead.PostCode</td>
+                        <td>@l.ValidatedLead.URL</td>
+                        <td>@l.ValidatedLead.Info</td>
+                    </tr>
+                }
+                else if (l.SentOutLead != null)
+                {
+                    <tr>
+                        <td><h4>Skickat Lead</h4></td>
+                        <td>@l.SentOutLead.Lead.Name</td>
+                        <td>@l.SentOutLead.Lead.Email</td>
+                        <td>@l.SentOutLead.Lead.PhoneNumber</td>
+                        <td>@l.SentOutLead.Lead.Address</td>
+                        <td>@l.SentOutLead.Lead.District</td>
+                        <td>@l.SentOutLead.Lead.PostCode</td>
+                        <td>@l.SentOutLead.Lead.URL</td>
+                        <td>@l.SentOutLead.Lead.Info</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+}
+
+@code {
+
+    private Entities.LostLead[] leads;
+
+    protected override async Task OnInitializedAsync()
+    {
+        leads = await Service.GetAllLostLeads();
+    }
+
+    public void onClickLead(LeadDto l)
+    {
+        NaviManager.NavigateTo($"/LoseLead/{l.Id}", forceLoad: true);
+        l = null;
+    }
+}
