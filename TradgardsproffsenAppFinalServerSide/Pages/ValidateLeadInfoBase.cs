@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using TradgardsproffsenApp.Data.Services;
 using TradgardsproffsenApp.Entities;
@@ -22,6 +20,8 @@ namespace TradgardsproffsenApp.Pages
         public ValidatedLeadService validService { get; set; }
         [Inject]
         public LeadJobsService leadJobService { get; set; }
+        [Inject]
+        NavigationManager NaviManager { get; set; }
 
         [Parameter]
         public string Id { get; set; }
@@ -47,6 +47,11 @@ namespace TradgardsproffsenApp.Pages
 
                 jobs.Add(job);
             }
+        }
+
+        public void onClickSend(int id)
+        {
+            NaviManager.NavigateTo($"/SentOutLead/{id}", forceLoad: true);
         }
 
 

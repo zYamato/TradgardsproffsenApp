@@ -2,53 +2,59 @@
 
 @inherits ValidateLeadBase
 
-<h3>Validera Lead</h3>
+<h3 class="d-flex justify-content-center pb-5">Validera Lead</h3>
 
-<EditForm Model="@validLead" OnValidSubmit="@HandleValidSubmit">
-    <div class="form-group">
-        <label for="name">Namn</label>
-        <input type="hidden" @bind-value="validLead.Name" />
-        <InputText class="form-control" id="name" @bind-Value="validLead.Name" />
+<body class="form-body">
+    <div class="textbox d-flex justify-content-center">
+        <EditForm Model="@validLead" OnValidSubmit="@HandleValidSubmit">
+            <div class="form-group">
+                <label for="name">Namn</label>
+                <input type="hidden" @bind-value="validLead.Name" />
+                <InputText class="form-control" id="name" @bind-Value="validLead.Name" />
+            </div>
+            <div class="form-group">
+                <label for="telefonNummer">Telefon Nummer</label>
+                <InputText class="form-control" id="telefonNummer" @bind-Value="validLead.PhoneNumber" />
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <InputText class="form-control" id="address" @bind-Value="validLead.Address" />
+            </div>
+            <div class="form-group">
+                <label for="district">Ort</label>
+                <InputText class="form-control" id="district" @bind-Value="validLead.District" />
+            </div>
+            <div class="form-group">
+                <label for="postCode">PostNr</label>
+                <InputText class="form-control" id="postCode" @bind-Value="validLead.PostCode" />
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <InputText class="form-control" id="email" @bind-Value="validLead.Email" />
+            </div>
+            @if (@jobs == null)
+            {
+                <p><em>Loading...</em></p>
+            }
+            else
+            {
+                @foreach (var check in CheckBoxList())
+                {
+                    <input class="custom-checkbox" type="checkbox" id="jobName" @onchange="eventArgs => { CheckboxClicked(check, eventArgs.Value); }" />
+                    <label for="jobName"> @check </label>
+                    <br />
+                }
+            }
+            @if (@success)
+            {
+                <div class="alert alert-success" role="alert">
+                    Leadet har Validerats
+                </div>
+            }
+            <button type="submit" class="btn btn-primary">Skicka</button>
+        </EditForm>
     </div>
-    <div class="form-group">
-        <label for="telefonNummer">Telefon Nummer</label>
-        <InputText class="form-control" id="telefonNummer" @bind-Value="validLead.PhoneNumber" />
-    </div>
-    <div class="form-group">
-        <label for="address">Address</label>
-        <InputText class="form-control" id="address" @bind-Value="validLead.Address" />
-    </div>
-    <div class="form-group">
-        <label for="district">Ort</label>
-        <InputText class="form-control" id="district" @bind-Value="validLead.District" />
-    </div>
-    <div class="form-group">
-        <label for="postCode">PostNr</label>
-        <InputText class="form-control" id="postCode" @bind-Value="validLead.PostCode" />
-    </div>
-    <div class="form-group">
-        <label for="email">Email</label>
-        <InputText class="form-control" id="email" @bind-Value="validLead.Email" />
-    </div>
-    @if (@jobs == null)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
-        @foreach (var check in CheckBoxList())
-        {
-            <input class="custom-checkbox" type="checkbox" id="jobName" @onchange="eventArgs => { CheckboxClicked(check, eventArgs.Value); }" />
-            <label for="jobName"> @check </label>
-            <br />
-        }
-    }
-    @if (@success)
-    {
-        <div class="alert alert-success" role="alert">
-            Leadet har Validerats
-        </div>
-    }
-    <button type="submit" class="btn btn-primary">Skicka</button>
-</EditForm>
+</body>
+
+
 

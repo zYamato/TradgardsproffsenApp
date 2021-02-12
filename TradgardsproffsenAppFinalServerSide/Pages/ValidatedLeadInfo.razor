@@ -5,7 +5,7 @@
 @inherits ValidateLeadInfoBase
 
 
-<h3>Validerade Leads Information</h3>
+<h3 class="d-flex justify-content-center pb-5">Validerade Leads Information</h3>
 
 <html>
 
@@ -14,7 +14,7 @@
 </head>
 
 <body class="form-body">
-    <div class="textbox">
+    <div class="textbox d-flex justify-content-center">
         <form action="/">
             <div class="banner">
                 <form-h1 style="font-weight:600">Validerat Lead</form-h1>
@@ -82,6 +82,7 @@
                     }
                 </tbody>
             </table>
+            <button type="button" class="btn btn-primary" @onclick="(()=>onClickSend(int.Parse(Id)))">Skicka</button>
         </form>
     </div>
 </body>
