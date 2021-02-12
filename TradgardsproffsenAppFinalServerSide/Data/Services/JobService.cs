@@ -11,8 +11,8 @@ namespace TradgardsproffsenApp.Data.Services
 {
     public class JobService
     {
-        //private string _ApiUrlBase = "https://tradgardsproffsen.azurewebsites.net/api/Job/";
-        private string _LocalUrlBase = "https://localhost:44347/api/Job/";
+        //private string _ApiUrlBase = "https://tradgardsproffsen.azurewebsites.net/api/job/";
+        private string _LocalUrlBase = "https://localhost:44347/api/job/";
         private readonly IHttpClientFactory _clientFactory;
 
         public JobService(IHttpClientFactory clientFactory)
