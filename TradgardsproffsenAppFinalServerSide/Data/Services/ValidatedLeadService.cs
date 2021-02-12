@@ -59,7 +59,6 @@ namespace TradgardsproffsenApp.Data.Services
             return null;
 
         }
-
         public async Task<ValidatedLeadDto[]> GetAllValidatedLeads()
         {
             ValidatedLeadDto[] leads;
@@ -98,7 +97,6 @@ namespace TradgardsproffsenApp.Data.Services
             }
             return null;
         }
-
         public async Task<bool> ValidateLead(CreateValidatedLeadDto lead)
         {
             string sUrl = _LocalUrlBase;
@@ -111,7 +109,6 @@ namespace TradgardsproffsenApp.Data.Services
             Console.WriteLine(respons);
             return true;
         }
-
         public async Task<ValidatedLead> GetValidatedLeadByID(int id)
         {
             ValidatedLead lead;
@@ -144,6 +141,23 @@ namespace TradgardsproffsenApp.Data.Services
 
             }
             return null;
+        }
+        public async Task<bool> DeleteValidated(int id)
+        {
+            string sUrl = _LocalUrlBase + id;
+
+            var request = new HttpRequestMessage(HttpMethod.Get,
+            sUrl);
+            var client = _clientFactory.CreateClient();
+
+            var respons = await client.DeleteAsync(sUrl);
+
+            Console.WriteLine("Respons content: ");
+            if (respons.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
         }
 
 

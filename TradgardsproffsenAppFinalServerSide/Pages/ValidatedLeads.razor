@@ -76,6 +76,7 @@ else
         };
 
         await LoseService.LoseLead(lostLead);
+        await Service.DeleteValidated(l.Id);
 
     }
 }
