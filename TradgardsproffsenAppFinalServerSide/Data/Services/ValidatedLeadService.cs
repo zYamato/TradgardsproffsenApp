@@ -24,41 +24,6 @@ namespace TradgardsproffsenApp.Data.Services
 
         public LeadService leadsService { get; set; }
 
-        public async Task<Lead> GetLeadForValidation(int id)
-        {
-            Lead lead;
-            string sUrl = _LocalUrlBase + id;
-            var request = new HttpRequestMessage(HttpMethod.Get,
-                sUrl);
-
-            var client = _clientFactory.CreateClient();
-
-            try
-            {
-                string respons = await client.GetStringAsync(sUrl);
-                lead = JsonConvert.DeserializeObject<Lead>(respons);
-                lead.Id = id;
-                return lead;
-            }
-            catch (SocketException e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            catch (HttpRequestException e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            finally
-            {
-
-            }
-            return null;
-
-        }
         public async Task<ValidatedLeadDto[]> GetAllValidatedLeads()
         {
             ValidatedLeadDto[] leads;
