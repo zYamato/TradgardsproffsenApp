@@ -61,7 +61,6 @@ namespace TradgardsproffsenApp.Data.Services
             return null;
 
         }
-
         public async Task<LostLead> GetLostLeadById(int id)
         {
                 LostLead lead;
@@ -95,7 +94,6 @@ namespace TradgardsproffsenApp.Data.Services
                 }
                 return null;
         }
-
         public async Task<bool> LoseLead(CreateLostLeadDto lead)
         {
             string sUrl = _LocalUrlBase;

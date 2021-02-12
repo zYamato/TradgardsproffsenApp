@@ -59,7 +59,6 @@ namespace TradgardsproffsenApp.Data.Services
             }
             return null;
         }
-
         public async Task<Job> GetJobByID(int id)
         {
             Job job;
