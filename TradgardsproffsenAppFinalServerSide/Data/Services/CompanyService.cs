@@ -14,7 +14,7 @@ namespace TradgardsproffsenApp.Data.Services
 {
     public class CompanyService
     {
-        private string _ApiUrlBase = "https://tradgardsproffsen.azurewebsites.net/api/foretag/";
+        private string _ApiUrlBase = "https://tradgardsproffsen.azurewebsites.net/api/company/";
         private string _LocalUrlBase = "https://localhost:44347/api/company/";
         private readonly IHttpClientFactory _clientFactory;
 
@@ -256,6 +256,7 @@ namespace TradgardsproffsenApp.Data.Services
             }
             return false;
         }
+        public async Task<>
         public async Task<CompanyDto[]> MatchingLead(ValidatedLeadDto Lead)
         {
             CompanyDto[] companies;
