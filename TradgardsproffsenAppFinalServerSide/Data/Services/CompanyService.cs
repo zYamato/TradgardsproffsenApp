@@ -256,7 +256,7 @@ namespace TradgardsproffsenApp.Data.Services
             }
             return false;
         }
-        public async Task<>
+        //public async Task<>
         public async Task<CompanyDto[]> MatchingLead(ValidatedLeadDto Lead)
         {
             CompanyDto[] companies;

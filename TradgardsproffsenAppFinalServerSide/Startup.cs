@@ -37,6 +37,7 @@ namespace TradgardsproffsenApp
             services.AddSingleton<ValidatedLeadService>();
             services.AddSingleton<LeadJobsService>();
             services.AddSingleton<LostLeadService>();
+            services.AddSingleton<SentOutLeadService>();
             services.AddHttpClient();
             services.AddBlazorTable();
             services.AddBlazoredModal();

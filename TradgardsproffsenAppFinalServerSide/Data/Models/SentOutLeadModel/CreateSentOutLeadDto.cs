@@ -5,8 +5,15 @@ namespace TradgardsproffsenApp.Models
 {
     public class CreateSentOutLeadDto
     {
-        public ValidatedLead Lead { get; set; }
-        public List<Job> Jobs { get; set; } = new List<Job>();
-        public List<Company> ForetagListaSkickade { get; set; } = new List<Company>();
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public string District { get; set; }
+        public string PostCode { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
+        public string URL { get; set; }
+        public string Info { get; set; }
+        public List<LeadJob> Jobs { get; set; }
+        public List<Company> CompaniesSentTo { get; set; }
     }
 }

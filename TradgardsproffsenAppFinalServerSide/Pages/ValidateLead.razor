@@ -38,12 +38,24 @@
             }
             else
             {
-                @foreach (var check in CheckBoxList())
-                {
-                    <input class="custom-checkbox" type="checkbox" id="jobName" @onchange="eventArgs => { CheckboxClicked(check, eventArgs.Value); }" />
-                    <label for="jobName"> @check </label>
-                    <br />
-                }
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Jobb</th>
+                            <th>Ska utföras</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var check in CheckBoxList())
+                        {
+
+                        <tr>
+                            <td><label for="jobName"> @check </label></td>
+                            <td> <input class="custom-checkbox" type="checkbox" id="jobName" @onchange="eventArgs => { CheckboxClicked(check, eventArgs.Value); }" /></td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
             }
             @if (@success)
             {

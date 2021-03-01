@@ -1,5 +1,78 @@
-﻿<h3>SendLead</h3>
+﻿@page "/sendlead"
+@inherits SendOutLeadBase
 
-@code {
+<h3 class="d-flex justify-content-center pb-5">Validera Lead</h3>
 
-}
+<body class="form-body">
+    <div class="textbox d-flex justify-content-center">
+        <EditForm Model="@lead" OnValidSubmit="@HandleValidSubmit">
+            <div class="form-group">
+                <label for="name">Namn</label>
+                <input type="hidden" @bind-value="lead.Name" />
+                <InputText class="form-control" id="name" @bind-Value="lead.Name" />
+            </div>
+            <div class="form-group">
+                <label for="telefonNummer">Telefon Nummer</label>
+                <InputText class="form-control" id="telefonNummer" @bind-Value="lead.PhoneNumber" />
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <InputText class="form-control" id="address" @bind-Value="lead.Address" />
+            </div>
+            <div class="form-group">
+                <label for="district">Ort</label>
+                <InputText class="form-control" id="district" @bind-Value="lead.District" />
+            </div>
+            <div class="form-group">
+                <label for="postCode">PostNr</label>
+                <InputText class="form-control" id="postCode" @bind-Value="lead.PostCode" />
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <InputText class="form-control" id="email" @bind-Value="lead.Email" />
+            </div>
+            <div class="form-group">
+                <label for="email">Jobs</label>
+                @foreach (var jobs in lead.Jobs)
+                {
+                    <InputText class="form-control" id="jobs" @bind-Value="jobs.Job.Name" />
+                }
+            </div>
+            <div class="form-group">
+                <label for="email">Info</label>
+                <InputText class="form-control" id="info" @bind-Value="lead.Info" />
+            </div>
+            @if (companies == null)
+            {
+                <p><em>Loading...</em></p>
+            }
+            else
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Company</th>
+                            <th>Ska skickas till</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var check in CheckBoxList())
+                        {
+                            <tr>
+                                <td><label for="companyName"> @check </label></td>
+                                <td> <input class="custom-checkbox" type="checkbox" id="companyName" @onchange="eventArgs => { CheckboxClicked(check, eventArgs.Value); }" /></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            @if (@success)
+            {
+                <div class="alert alert-success" role="alert">
+                    Leadet har Validerats
+                </div>
+            }
+            <button type="submit" class="btn btn-primary">Skicka</button>
+        </EditForm>
+    </div>
+</body>

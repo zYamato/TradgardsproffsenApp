@@ -4,7 +4,7 @@
 @inject SentOutLeadService Service
 @inject NavigationManager NaviManager
 
-<h3>Förlorade leads</h3>
+<h3>Skickade leads</h3>
 
 @if (leads == null)
 {
@@ -29,14 +29,14 @@ else
             @foreach (var l in leads)
             {
                 <tr>
-                    <td>@l.Lead.Name</td>
-                    <td>@l.Lead.Email</td>
-                    <td>@l.Lead.PhoneNumber</td>
-                    <td>@l.Lead.Address</td>
-                    <td>@l.Lead.PostCode</td>
-                    <td>@l.Lead.District</td>
-                    <td>@l.Lead.URL</td>
-                    <td>@l.Lead.Info</td>
+                    <td>@l.Name</td>
+                    <td>@l.Email</td>
+                    <td>@l.PhoneNumber</td>
+                    <td>@l.Address</td>
+                    <td>@l.PostCode</td>
+                    <td>@l.District</td>
+                    <td>@l.URL</td>
+                    <td>@l.Info</td>
                 </tr>
             }
         </tbody>
