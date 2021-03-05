@@ -1,0 +1,46 @@
+﻿@page "/Registerpage"
+<html>
+<head>
+    <title>Registrera nytt konto</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link href="~/css/site.css" rel="stylesheet" />
+
+</head>
+<body class=register-body>
+    <div class="testbox">
+        <form action="/">
+            <div class="banner">
+                <h1 style="font-weight:600">Registrera nytt konto</h1>
+            </div>
+
+            <div class="item">
+                <p>Användarnamn<span class="required">*</span></p>
+                <div class="name-item">
+                    <input type="text" name="name" placeholder="Ange användarnamn" />
+                </div>
+            </div>
+            <div class="item">
+                <p>Lösenord<span class="required">*</span></p>
+                <div class="name-item">
+                    <input type="text" name="name" placeholder="Ange lösenord" />
+                </div>
+            </div>
+            <div class="item">
+                <p>E-post<span class="required">*</span></p>
+                <div class="name-item">
+                    <input type="text" name="name" placeholder="Ange din e-post" />
+                </div>
+            </div>
+
+
+            <div class="btn-block">
+                <button type="submit" href="/">Registrera</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+@code{
+
+}

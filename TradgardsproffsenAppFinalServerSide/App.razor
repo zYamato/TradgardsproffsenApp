@@ -1,12 +1,22 @@
-﻿<CascadingBlazoredModal>
+﻿@using Microsoft.AspNetCore.Components.Authorization
+<CascadingBlazoredModal>
     <Router AppAssembly="@typeof(Program).Assembly">
         <Found Context="routeData">
-            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <Authorizing>
+                    <text>Please wait, authorizing ...</text>
+                </Authorizing>
+                <NotAuthorized>
+                    <text> You are not authorized to access this page...</text>
+                </NotAuthorized>
+            </AuthorizeRouteView>
         </Found>
         <NotFound>
-            <LayoutView Layout="@typeof(MainLayout)">
-                <p>Sorry, there's nothing at this address.</p>
-            </LayoutView>
+            <CascadingAuthenticationState>
+                <LayoutView Layout="@typeof(MainLayout)">
+                    <p>404 not found...</p>
+                </LayoutView>
+            </CascadingAuthenticationState>
         </NotFound>
     </Router>
 </CascadingBlazoredModal>

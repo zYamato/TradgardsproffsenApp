@@ -13,6 +13,8 @@ using TradgardsproffsenApp.Data;
 using TradgardsproffsenApp.Data.Services;
 using BlazorTable;
 using Blazored.Modal;
+using TradgardsproffsenApp.AuthProviders;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace TradgardsproffsenApp
 {
@@ -31,6 +33,8 @@ namespace TradgardsproffsenApp
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddOptions();
+            services.AddAuthenticationCore();
             services.AddSingleton<CompanyService>();
             services.AddSingleton<LeadService>();
             services.AddSingleton<JobService>();
@@ -38,6 +42,12 @@ namespace TradgardsproffsenApp
             services.AddSingleton<LeadJobsService>();
             services.AddSingleton<LostLeadService>();
             services.AddSingleton<SentOutLeadService>();
+            services.AddSingleton<UserService>();
+            services.AddSingleton<TokenService>();
+            services.AddScoped<CustomLocalStorageService>();
+            services.AddScoped<AuthenticationStateProvider, TestAuthStateProvider>();
+            services.AddScoped<TestAuthStateProvider>();
+            services.AddScoped<LoggedInData>();
             services.AddHttpClient();
             services.AddBlazorTable();
             services.AddBlazoredModal();
