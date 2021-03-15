@@ -51,7 +51,7 @@ namespace TradgardsproffsenApp.Pages
 
         public void onClickSend(int id)
         {
-            NaviManager.NavigateTo($"/SentOutLead/{id}", forceLoad: true);
+            NaviManager.NavigateTo($"/sendlead/{id}", forceLoad: true);
         }
 
 

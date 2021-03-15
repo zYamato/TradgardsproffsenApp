@@ -1,4 +1,4 @@
-﻿@page "/sendlead"
+﻿@page "/sendlead/{id}"
 @inherits SendOutLeadBase
 
 <h3 class="d-flex justify-content-center pb-5">Validera Lead</h3>
@@ -32,15 +32,12 @@
                 <InputText class="form-control" id="email" @bind-Value="lead.Email" />
             </div>
             <div class="form-group">
-                <label for="email">Jobs</label>
-                @foreach (var jobs in lead.Jobs)
-                {
-                    <InputText class="form-control" id="jobs" @bind-Value="jobs.Job.Name" />
-                }
-            </div>
-            <div class="form-group">
                 <label for="email">Info</label>
                 <InputText class="form-control" id="info" @bind-Value="lead.Info" />
+            </div>
+            <div class="form-group">
+                <label for="email">Beskrivning</label>
+                <InputTextArea class="form-control" id="description" @bind-Value="leadToSend.Description" />
             </div>
             @if (companies == null)
             {

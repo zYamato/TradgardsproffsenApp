@@ -24,6 +24,7 @@ namespace TradgardsproffsenApp.Entities
         public string Email { get; set; }
         [Required]
         public string URL { get; set; }
+        public string Description { get; set; }
         public string Info { get; set; }
         public List<LeadJob> Jobs { get; set; }
         public List<Company> CompaniesSentTo { get; set; }

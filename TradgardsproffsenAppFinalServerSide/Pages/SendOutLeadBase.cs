@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +23,7 @@ namespace TradgardsproffsenApp.Pages
 
         public static Entities.ValidatedLead lead { get; set; } = new Entities.ValidatedLead();
         public List<CompanyDto> companies { get; set; }
-        public List<Entities.Company> companiesToAdd { get; set; }
+        public List<Entities.Company> companiesToAdd { get; set; } = new List<Entities.Company>();
         public CreateSentOutLeadDto leadToSend = new CreateSentOutLeadDto
         {
             Name = lead.Name,
@@ -72,8 +74,50 @@ namespace TradgardsproffsenApp.Pages
             leadToSend.CompaniesSentTo = companiesToAdd;
             bool test;
 
-            //success = await Service.SendLead();
+            success = await Service.SendLead(leadToSend);
+
+            //NOT IMPLEMENTED YET!
+
+            //foreach(var company in leadToSend.CompaniesSentTo)
+            //{
+                await ExecuteMail(
+                    "Jesper.eriksson.99@outlook.com",
+                    "Jesper",
+                    "Uppdrag från Trädgårdsproffsen",
+                    "Hejsan! \n " +
+                    "\n " +
+                    "Här kommer ett uppdrag från oss på Trädgårdsproffsen. Ring kunden så fort som möjligt, lycka till! \n" +
+                    $"{leadToSend.Name}\n" +
+                    $"{leadToSend.PhoneNumber}\n" +
+                    $"{leadToSend.Address + leadToSend.PostCode + leadToSend.District}\n" +
+                    $"{leadToSend.Info}\n" +
+                    $"{leadToSend.Description}"
+                    );
+           // }
+
             test = await validService.DeleteValidated(lead.Id);
+        }
+        static async Task ExecuteMail(string email, string name, string subjects, string plaintexts)
+        {
+            var apiKey = "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";
+            var client = new SendGridClient(apiKey);
+            var from = new EmailAddress("Jesperceriksson@outlook.com", "Jesper");
+            var to = new EmailAddress(email, name);
+            var subject = subjects;
+            var plaintext = plaintexts;
+            var htmlcontent = "<strong></strong>";
+
+            var msg = MailHelper.CreateSingleEmail
+                (
+                    from,
+                    to,
+                    subject,
+                    plaintext,
+                    htmlcontent
+                );
+
+            var response = await client.SendEmailAsync(msg);
+
         }
 
         public void CheckboxClicked(string CheckId, object checkedValue)

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading.Tasks;
 using TradgardsproffsenApp.Models;
 
@@ -20,6 +21,19 @@ namespace TradgardsproffsenApp.Data.Services
             _clientFactory = clientFactory;
         }
 
+        public async Task<bool> SendLead(CreateSentOutLeadDto lead)
+        {
+            string sUrl = _LocalUrlBase;
+            string leadJson = JsonConvert.SerializeObject(lead);
+
+            var client = _clientFactory.CreateClient();
+
+            var stringContent = new StringContent(content: leadJson, encoding: Encoding.UTF8, mediaType: "application/json");
+            var respons = await client.PostAsync(sUrl, stringContent);
+            Console.WriteLine(respons);
+            return true;
+        }
+        
         public async Task<SentOutLeadDto[]> GetAllSentOutLeads()
         {
             SentOutLeadDto[] leads;
