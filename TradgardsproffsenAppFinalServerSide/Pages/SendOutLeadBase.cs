@@ -99,7 +99,7 @@ namespace TradgardsproffsenApp.Pages
         }
         static async Task ExecuteMail(string email, string name, string subjects, string plaintexts)
         {
-            var apiKey = "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";
+            var apiKey = "";
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress("Jesperceriksson@outlook.com", "Jesper");
             var to = new EmailAddress(email, name);
